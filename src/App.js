@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     // get current time
-    fetch('http://sampleappapi.onrender.com/api/time').then((resp) => resp.json()).then(data => {
+    fetch('https://sampleappapi.onrender.com/api/time').then((resp) => resp.json()).then(data => {
       console.log(data);
       setCurrTime(data.time);
     })
@@ -18,7 +18,8 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and SAVE to RELOAD.
+          Hi Holly.
+          {/* Edit <code>src/App.js</code> and SAVE to RELOAD. */}
         </p>
         <a
           className="App-link"
