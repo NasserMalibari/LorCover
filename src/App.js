@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     // get current time
-    fetch('/time').then((resp) => resp.json()).then(data => {
+    fetch('/api/time').then((resp) => resp.json()).then(data => {
       console.log(data);
       setCurrTime(data.time);
     })
