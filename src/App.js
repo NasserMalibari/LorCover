@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     // get current time
-    fetch('/api/time').then((resp) => resp.json()).then(data => {
+    fetch('http://sampleappapi.onrender.com/api/time').then((resp) => resp.json()).then(data => {
       console.log(data);
       setCurrTime(data.time);
     })
