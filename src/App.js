@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Page1 from './pages/page1';
 import Page2 from './pages/page2';
+import ProgressPage from './pages/ProgressPage';
 
 function App() {
   const [currTime, setCurrTime] = useState(0);
@@ -20,7 +21,7 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Page1 />}></Route>
+        <Route path='/' element={<ProgressPage />}></Route>
         <Route path="/page1" element={<Page1 />}></Route>
         <Route path="/page2" element={<Page2 />}></Route>
       </Routes>
