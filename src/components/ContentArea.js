@@ -4,12 +4,16 @@ import Sidebar from "./Sidebar";
 import MainContent from "./MainContent";
 
 
-function ContentArea({cards}) {
+function ContentArea({champions, followers}) {
 
   return <>
     <Box sx={{display: 'flex'}}>
-      <Sidebar />
-      <MainContent cards={cards}/>
+      <Box>
+        <Sidebar />
+      </Box>
+      <Box>
+        <MainContent champions={champions} followers={followers}/>
+      </Box>
     </Box>
   </>
 }
