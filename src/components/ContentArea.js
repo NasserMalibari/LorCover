@@ -1,24 +1,15 @@
 import { Box } from "@mui/material";
 import React from "react";
 import Sidebar from "./Sidebar";
+import MainContent from "./MainContent";
 
 
-function ContentArea() {
+function ContentArea({cards}) {
 
   return <>
     <Box sx={{display: 'flex'}}>
       <Sidebar />
-      <Box
-      sx={{
-        flexGrow: 1,
-        height: 'calc(100vh - 64px)',
-        overflowY: 'auto',
-        padding: '0px', // Add some padding
-      }}
-    >
-      {/* Main content */}
-      Main Content
-    </Box>
+      <MainContent cards={cards}/>
     </Box>
   </>
 }
