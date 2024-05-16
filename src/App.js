@@ -7,15 +7,6 @@ import Page2 from './pages/page2';
 import ProgressPage from './pages/ProgressPage';
 
 function App() {
-  const [currTime, setCurrTime] = useState(0);
-
-  useEffect(() => {
-    // get current time
-    fetch('https://sampleappapi.onrender.com/api/time').then((resp) => resp.json()).then(data => {
-      console.log(data);
-      setCurrTime(data.time);
-    })
-  }, []);
 
   return (
     <>

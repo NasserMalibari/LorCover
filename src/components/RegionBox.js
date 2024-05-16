@@ -7,7 +7,7 @@ function RegionBox({imageUrl, progressValue, backgroundColor }) {
 
 return <>
   <div style={{ textAlign: 'center' }}>
-    <img src={imageUrl} width={100} height={100} />
+    <img src={imageUrl} width={70} height={70} />
   </div>
   <div style={{ paddingLeft: 10, paddingRight: 10 }}>
     <LinearProgress

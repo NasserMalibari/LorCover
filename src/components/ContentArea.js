@@ -4,12 +4,12 @@ import Sidebar from "./Sidebar";
 import MainContent from "./MainContent";
 
 
-function ContentArea({champions, followers}) {
+function ContentArea({champions, followers, toggleRegions, regions}) {
 
   return <>
     <Box sx={{display: 'flex'}}>
       <Box>
-        <Sidebar />
+        <Sidebar toggleRegions={toggleRegions} regions={regions}/>
       </Box>
       <Box>
         <MainContent champions={champions} followers={followers}/>

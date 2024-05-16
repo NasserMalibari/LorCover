@@ -23,20 +23,20 @@ function MainContent({champions, followers}) {
   padding: '0px',
   paddingLeft: '10px',
   paddingTop: '25px'}}>
-    <FormControl>
-  <FormLabel id="demo-controlled-radio-buttons-group">Show</FormLabel>
-  <RadioGroup
-    aria-labelledby="demo-controlled-radio-buttons-group"
-    name="controlled-radio-buttons-group"
-    value={value}
-    onChange={handleChange}
-    row
-  >
-    <FormControlLabel value="all" control={<Radio />} label="All" />
-    <FormControlLabel value="completed" control={<Radio />} label="Completed" />
-    <FormControlLabel value="uncompleted" control={<Radio />} label="Uncompleted" />
-  </RadioGroup>
-</FormControl>
+  <FormControl>
+    <FormLabel id="demo-controlled-radio-buttons-group">Show</FormLabel>
+    <RadioGroup
+      aria-labelledby="demo-controlled-radio-buttons-group"
+      name="controlled-radio-buttons-group"
+      value={value}
+      onChange={handleChange}
+      row
+    >
+      <FormControlLabel value="all" control={<Radio />} label="All" />
+      <FormControlLabel value="completed" control={<Radio />} label="Completed" />
+      <FormControlLabel value="uncompleted" control={<Radio />} label="Uncompleted" />
+    </RadioGroup>
+  </FormControl>
   <Box sx={{fontSize: '2em', fontWeight: 'bold', marginBottom: '10px'}}>
     Champions
   </Box>
