@@ -50,8 +50,18 @@ function MainContent({champions, followers}) {
 
   }}
   >
-      {champions !== undefined && champions.map((card, index) => (
-        <CardBox key={index} name={card.name} regions={card.regions} path={card.path} completed={false}/>
+      {champions !== undefined && 
+      champions.filter(card => {
+        if (value === 'all') {
+          return true;
+        } else if (value === 'completed') {
+          return card.completed;
+        } else {
+          return !card.completed;
+        }
+      })
+      .map((card, index) => (
+        <CardBox key={index} name={card.name} regions={card.regions} path={card.path} completed={card.completed}/>
       ))}
   </Box>
   <Box sx={{fontSize: '2em', fontWeight: 'bold', marginBottom: '10px'}}>
@@ -65,7 +75,16 @@ function MainContent({champions, followers}) {
 
   }}
   >
-      {followers !== undefined && followers.map((card, index) => (
+      {followers !== undefined && followers.filter(card => {
+        if (value === 'all') {
+          return true;
+        } else if (value === 'completed') {
+          return card.completed;
+        } else {
+          return !card.completed;
+        }
+      })
+      .map((card, index) => (
         <CardBox key={index} name={card.name} regions={card.regions} path={card.path}/>
       ))}
   </Box>

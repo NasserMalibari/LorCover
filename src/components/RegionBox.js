@@ -6,7 +6,7 @@ import { CProgress, CProgressBar } from '@coreui/bootstrap-react'
 function RegionBox({imageUrl, progressValue, backgroundColor }) {
 
 return <>
-  <div style={{ textAlign: 'center' }}>
+  <div style={{ textAlign: 'center'}}>
     <img src={imageUrl} width={70} height={70} />
   </div>
   <div style={{ paddingLeft: 10, paddingRight: 10 }}>
@@ -23,6 +23,7 @@ return <>
           backgroundImage: 'linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)',
           backgroundSize: '1rem 1rem', // Set the size of the stripes
         },
+        border: '1px solid grey'
       }}
     />
   </div>

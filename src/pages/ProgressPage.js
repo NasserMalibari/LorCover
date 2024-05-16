@@ -54,12 +54,15 @@ function ProgressPage() {
 
     for (let region in selectedRegions) {
       resp.data[region]['champions'].forEach(card => {
+        card['completed'] = false;
         newChamps.push(card);
       })
     }
     // sort by name then cost
     newChamps.sort((a, b) => a.name > b.name);
     newChamps.sort((a, b) => a.cost > b.cost);
+
+    // remove duplicates
     newChamps = newChamps.filter(function(item, pos, arr){
       return pos === 0 || item.name !== arr[pos-1].name;
     });
@@ -70,12 +73,19 @@ function ProgressPage() {
     let newFollowers = []
     for (let region in selectedRegions) {
       resp.data[region]['rest'].forEach(card => {
+        card['completed'] = false;
         newFollowers.push(card);
       })
     }
     // sort by name then cost
     newFollowers.sort((a, b) => a.name > b.name);
     newFollowers.sort((a, b) => a.cost > b.cost);
+
+    // remove duplicates
+    newFollowers = newFollowers.filter(function(item, pos, arr){
+      return pos === 0 || item.name !== arr[pos-1].name;
+    });
+
     setAllFollowers(newFollowers);
     setFollowers(newFollowers);
   }
@@ -98,7 +108,7 @@ function ProgressPage() {
       for (let region in selectedRegions) {
         if (selectedRegions[region] && cardRegions.includes(regionToAbbrev[region])) {
           return true;
-        } 
+        }
       }
 
       return false;
@@ -115,12 +125,12 @@ function ProgressPage() {
       return false;
     }));
 
-  }, [selectedRegions])
+  }, [selectedRegions, allChampions, allFollowers])
+
 
   useEffect(() => {
     setInitialCards();
   }, []);
-  // console.log(cards);
 
   return <>
     <SubNav />

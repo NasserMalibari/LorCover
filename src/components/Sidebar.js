@@ -7,14 +7,22 @@ function Sidebar({toggleRegions, regions}) {
 
   const selectedStyle = {
     boxShadow: '0 0 5px rgba(0, 0, 0, 0.5)',
-    border: '2px solid #333'
+    border: '2px solid #333',
+    borderRadius: '20px',
+    paddingBottom: '5px',
+    cursor: 'pointer' 
+  }
+
+  const unselectedStyle = {
+    paddingBottom: '5px',
+    cursor: 'pointer' 
   }
 
   return <>
-    <Box sx={{ color: 'white', width: 250, height: 'calc(100vh - 104px)', backgroundColor: '#fff',
+    <Box sx={{ color: 'white', width: 250, height: 'calc(100vh - 104px)', backgroundColor: '#eee',
      display: 'flex', flexDirection: 'column', gap: '10px',
      overflowY: 'auto', paddingBottom: '20px', paddingTop: '20px' }}>
-      <Box sx={regions['Demacia'] ? selectedStyle : {}} onClick={() => toggleRegions('Demacia')}>
+      <Box sx={regions['Demacia'] ? selectedStyle : unselectedStyle} onClick={() => toggleRegions('Demacia')}>
         <RegionBox imageUrl='./Demacia.png' progressValue={50} backgroundColor={"#decb9d"} />
       </Box>
       <Box sx={regions['Ionia'] ? selectedStyle : {}} onClick={() => toggleRegions('Ionia')}>

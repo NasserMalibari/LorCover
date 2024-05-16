@@ -1,6 +1,5 @@
 import logo from './logo.svg';
 import './App.css';
-import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Page1 from './pages/page1';
 import Page2 from './pages/page2';

@@ -75,7 +75,7 @@ function SubNav() {
             component="div"
             sx={{ marginRight: '60px', display: { xs: 'none', sm: 'block' } }}
           >
-            0 / 100
+            0 / 1005
           </Typography>
           <Typography
             variant="h6"
