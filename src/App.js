@@ -18,25 +18,6 @@ function App() {
     
     </BrowserRouter>
     </>
-    // <div className="App">
-    //   <header className="App-header">
-    //     <Page1 />
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Hi Holly.
-    //       {/* Edit <code>src/App.js</code> and SAVE to RELOAD. */}
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //     <p>The current time is {currTime}</p>
-    //   </header>
-    // </div>
   );
 }
 

@@ -26,7 +26,12 @@ function ProgressPage() {
     axios.get(`https://sampleappapi.onrender.com/api/lastMatchID?name=${name}&tag=${tag}&num_matches=${numMatches}`)
     .then((resp) => {
       console.log(resp.data);
-      // console.log(resp.data.lastMatchID);
+
+      // set completed cards
+      for (let card in resp.data.cards) {
+
+      }
+
       setRiotID(`${name} #${tag}`);
     })
     .catch((err) => console.log('there was an error'))
@@ -43,8 +48,8 @@ function ProgressPage() {
 
   }
 
-  const [allChampions, setAllChampions] = useState([]);
-  const [allFollowers, setAllFollowers] = useState([]);
+  const [allChampions, setAllChampions] = useState({});
+  const [allFollowers, setAllFollowers] = useState({});
   const [champions, setChampions] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [selectedRegions, setSelectedRegions] = useState({
@@ -101,7 +106,12 @@ function ProgressPage() {
       return pos === 0 || item.name !== arr[pos-1].name;
     });
 
-    setAllChampions(newChamps);
+    let newChampsObj = newChamps.reduce((acc, obj) => {
+      acc[obj['cardCode']] = obj;
+      return acc;
+    }, {});
+
+    setAllChampions(newChampsObj);
     setChampions(newChamps);
 
     let newFollowers = []
@@ -120,7 +130,13 @@ function ProgressPage() {
       return pos === 0 || item.name !== arr[pos-1].name;
     });
 
-    setAllFollowers(newFollowers);
+    let newFollowersObj = newFollowers.reduce((acc, obj) => {
+      acc[obj['cardCode']] = obj;
+      return acc;
+    }, {});
+
+    console.log(newFollowersObj);
+    setAllFollowers(newFollowersObj);
     setFollowers(newFollowers);
   }
 
@@ -137,28 +153,29 @@ function ProgressPage() {
 
   useEffect(() => {
     // update shown cards
-    setChampions(allChampions.filter(card => {
-      const cardRegions = card.regions;
+    setChampions(Object.entries(allChampions)
+    .filter(([, value]) => {
       for (let region in selectedRegions) {
-        if (selectedRegions[region] && cardRegions.includes(regionToAbbrev[region])) {
+        if (selectedRegions[region] && (value.regions).includes(regionToAbbrev[region])) {
           return true;
         }
       }
-
       return false;
-    }));
+    })
+    .map(([, value]) => value)
+  );
 
-    setFollowers(allFollowers.filter(card => {
-      const cardRegions = card.regions;
-      for (let region in selectedRegions) {
-        if (selectedRegions[region] && cardRegions.includes(regionToAbbrev[region])) {
-          return true;
-        } 
+  setFollowers(Object.entries(allFollowers)
+  .filter(([, value]) => {
+    for (let region in selectedRegions) {
+      if (selectedRegions[region] && (value.regions).includes(regionToAbbrev[region])) {
+        return true;
       }
-
-      return false;
-    }));
-
+    }
+    return false;
+  })
+  .map(([, value]) => value)
+);
   }, [selectedRegions, allChampions, allFollowers])
 
 
