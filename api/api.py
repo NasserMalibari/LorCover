@@ -39,7 +39,7 @@ def getLastMatchID():
 
     try:
         # riot_key = os.getenv('RIOT_KEY')
-        riot_key = os.environ.get('RIOT_KEY')
+        riot_key = os.getenv('RIOT_KEY')
         endpoint=f"https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{name}/{tag}?api_key={riot_key}"
 
         response = requests.get(endpoint)
