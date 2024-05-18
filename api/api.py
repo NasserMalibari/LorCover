@@ -44,7 +44,7 @@ def getLastMatchID():
 
         response = requests.get(endpoint)
         if response.status_code != 200:
-            raise ValueError(riot_key)
+            return ({'error': 'error finding player puuid', 'code': response.status_code}), 400
         
         data = response.json()
         puuid = data['puuid']
@@ -53,7 +53,7 @@ def getLastMatchID():
         endpoint = f"https://americas.api.riotgames.com/lor/match/v1/matches/by-puuid/{puuid}/ids?api_key={riot_key}"
         response = requests.get(endpoint)
         if response.status_code != 200:
-            raise ValueError()
+            return ({'error': 'error finding matches', 'code': response.status_code}), 400
         data = response.json()
         return {'lastMatchID': data[0]}
         
