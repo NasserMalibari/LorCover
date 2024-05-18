@@ -39,12 +39,12 @@ def getLastMatchID():
 
     try:
         # riot_key = os.getenv('RIOT_KEY')
-        riot_key = os.environ.get('DATABASE_URL')
+        riot_key = os.environ.get('RIOT_KEY')
         endpoint=f"https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{name}/{tag}?api_key={riot_key}"
 
         response = requests.get(endpoint)
         if response.status_code != 200:
-            raise ValueError()
+            raise ValueError(riot_key)
         
         data = response.json()
         puuid = data['puuid']
