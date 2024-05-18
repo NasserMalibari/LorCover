@@ -7,7 +7,7 @@ const CopyField = ({ value }) => {
       style: { color: '#FFFFFF' }
   }
   const [open, setOpen] = useState(false);
-  const [code, setCode] = useState("hello");
+  const [code, setCode] = useState(value);
 
 
   const handleClick = () => {

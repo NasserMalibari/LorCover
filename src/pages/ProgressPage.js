@@ -9,6 +9,24 @@ import axios from "axios";
 
 function ProgressPage() {
 
+  const [riotID, setRiotID] = useState('');
+  const [numCardsCompleted, setNumCardsCompleted] = useState(0);
+  const [numGames, setNumGames] = useState(0);
+  const [progressCode, setProgressCode] = useState(0);
+
+  const startProfile = (riotID) => {
+    // get last  match id
+  }
+
+  const loadProfile = (progressCode) => {
+    // setProgressCode, setNumGames, setNumCardsCompleted, setRiotId
+  }
+
+  const updateProfile = () => {
+    // fetch info from api given latest match
+    
+  }
+
   const [allChampions, setAllChampions] = useState([]);
   const [allFollowers, setAllFollowers] = useState([]);
   const [champions, setChampions] = useState([]);
@@ -133,7 +151,7 @@ function ProgressPage() {
   }, []);
 
   return <>
-    <SubNav />
+    <SubNav riotID={riotID} numCardsCompleted={numCardsCompleted} numGames={numGames} progressCode={progressCode}/>
     <ContentArea champions={champions} followers={followers} toggleRegions={toggleSelectedRegion} regions={selectedRegions}/>
   </>
 }

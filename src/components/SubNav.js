@@ -56,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 
-function SubNav() {
+function SubNav({riotID, numCardsCompleted, numGames, progressCode}) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{backgroundColor: '#172c70'}}>
@@ -67,7 +67,7 @@ function SubNav() {
             component="div"
             sx={{ marginRight: '60px', display: { xs: 'none', sm: 'block' } }}
           >
-            Naś #OCE
+            {riotID}
           </Typography>
           <Typography
             variant="h6"
@@ -75,7 +75,7 @@ function SubNav() {
             component="div"
             sx={{ marginRight: '60px', display: { xs: 'none', sm: 'block' } }}
           >
-            0 / 1005
+            {numCardsCompleted} / 1005
           </Typography>
           <Typography
             variant="h6"
@@ -91,7 +91,7 @@ function SubNav() {
             component="div"
             sx={{ marginRight:'60px', display: { xs: 'none', sm: 'block' } }}
           >
-            0 games
+            {numGames} games
           </Typography>
           <Typography
             variant="h6"
@@ -101,7 +101,7 @@ function SubNav() {
           >
             Copy Progress
           </Typography>
-          <CopyField />
+          <CopyField value={progressCode} />
           <Button variant="outlined" color="error">Reset Progress</Button>
         </Toolbar>
       </AppBar>
