@@ -56,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 
-function SubNav({riotID, numCardsCompleted, numGames, progressCode}) {
+function SubNav({riotID, numCardsCompleted, numGames, progressCode, openProfile}) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{backgroundColor: '#172c70'}}>
@@ -102,7 +102,8 @@ function SubNav({riotID, numCardsCompleted, numGames, progressCode}) {
             Copy Progress
           </Typography>
           <CopyField value={progressCode} />
-          <Button variant="outlined" color="error">Reset Progress</Button>
+          {/* <Button variant="outlined" color="error">Reset Progress</Button> */}
+          <Button onClick={openProfile} variant="contained" color="primary">New Profile</Button>
         </Toolbar>
       </AppBar>
     </Box>

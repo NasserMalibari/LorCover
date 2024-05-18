@@ -1,20 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import Nav from "../components/NavBar";
 import SubNav from "../components/SubNav";
 import ContentArea from "../components/ContentArea";
-import { Box } from "@mui/material";
 import axios from "axios";
+import CreateProfile from "../components/CreateProfile"
 
 function ProgressPage() {
 
   const [riotID, setRiotID] = useState('');
   const [numCardsCompleted, setNumCardsCompleted] = useState(0);
   const [numGames, setNumGames] = useState(0);
-  const [progressCode, setProgressCode] = useState(0);
+  const [progressCode, setProgressCode] = useState('');
 
-  const startProfile = (riotID) => {
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // eg {'name': 'Naś', 'tag': 'OCE'}
+  const startProfile = async (name, tag, numMatches) => {
+    axios.get(`https://sampleappapi.onrender.com/api/lastMatchID?name=${name}&tag=${tag}&num_matches=${numMatches}`)
+    .then((resp) => {
+      console.log(resp.data);
+      // console.log(resp.data.lastMatchID);
+      setRiotID(`${name} #${tag}`);
+    })
+    .catch((err) => console.log('there was an error'))
+    // const resp = await axios.get(`https://sampleappapi.onrender.com/api/lastMatchID?name=${name}&tag=${tag}`);
     // get last  match id
   }
 
@@ -24,7 +40,7 @@ function ProgressPage() {
 
   const updateProfile = () => {
     // fetch info from api given latest match
-    
+
   }
 
   const [allChampions, setAllChampions] = useState([]);
@@ -151,9 +167,10 @@ function ProgressPage() {
   }, []);
 
   return <>
-    <SubNav riotID={riotID} numCardsCompleted={numCardsCompleted} numGames={numGames} progressCode={progressCode}/>
+    <SubNav riotID={riotID} numCardsCompleted={numCardsCompleted} numGames={numGames} progressCode={progressCode} openProfile={handleClickOpen}/>
     <ContentArea champions={champions} followers={followers} toggleRegions={toggleSelectedRegion} regions={selectedRegions}/>
-  </>
+    <CreateProfile open={open} handleClose={handleClose} startProfile={startProfile}/>
+    </>
 }
 
 export default ProgressPage;
