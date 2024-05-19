@@ -4,6 +4,7 @@ import SubNav from "../components/SubNav";
 import ContentArea from "../components/ContentArea";
 import axios from "axios";
 import CreateProfile from "../components/CreateProfile"
+import encodeDeck, { cardArrayToDeckCode } from "../helpers/generateCode";
 
 function ProgressPage() {
 
@@ -11,33 +12,46 @@ function ProgressPage() {
   const [numCardsCompleted, setNumCardsCompleted] = useState(0);
   const [numGames, setNumGames] = useState(0);
   const [progressCode, setProgressCode] = useState('');
+  const [lastMatchID, setLastMatchID] = useState('');
 
-  const [open, setOpen] = React.useState(false);
+  const [openNewProfile, setOpenNewProfile] = React.useState(false);
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpenNewProfile(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpenNewProfile(false);
   };
 
   // eg {'name': 'Naś', 'tag': 'OCE'}
   const startProfile = async (name, tag, numMatches) => {
-    axios.get(`https://sampleappapi.onrender.com/api/lastMatchID?name=${name}&tag=${tag}&num_matches=${numMatches}`)
+    // axios.get(`https://sampleappapi.onrender.com/api/lastMatchID?name=${name}&tag=${tag}&num_matches=${numMatches}`)
+    axios.get(`http://127.0.0.1:5000/api/lastMatchID?name=${name}&tag=${tag}&num_matches=${numMatches}`)
     .then((resp) => {
-      console.log(resp.data);
-
+      setLastMatchID(resp.data.lastMatchID);
       // set completed cards
-      for (let card in resp.data.cards) {
-
-      }
+      resp.data.cards.forEach((card) => {
+        if (card in allChampions) {
+          allChampions[card].completed = true;
+        } else if (card in allFollowers) {
+          allFollowers[card].completed = true;
+        }
+      })
+      setNumGames(numMatches);
+      setNumCardsCompleted(resp.data.cards.length);
+      encodeDeck(resp.data.cards);
 
       setRiotID(`${name} #${tag}`);
     })
-    .catch((err) => console.log('there was an error'))
+    .catch((err) => {
+      console.log(err);
+      console.log('there was an error')
+    })
     // const resp = await axios.get(`https://sampleappapi.onrender.com/api/lastMatchID?name=${name}&tag=${tag}`);
     // get last  match id
   }
+
+
 
   const loadProfile = (progressCode) => {
     // setProgressCode, setNumGames, setNumCardsCompleted, setRiotId
@@ -80,10 +94,18 @@ function ProgressPage() {
     'Shurima': 'SH'
   }
 
+  useEffect(() => {
+    // get code
+    cardArrayToDeckCode(allChampions, allFollowers)
+
+    // setProgresCode
+    setProgressCode(`${riotID};${numGames};${cardArrayToDeckCode(allChampions,allFollowers)};${lastMatchID}`);
+    console.log('changing progressCode');
+  }, [allChampions, allFollowers, numGames])
   
   const setInitialCards = async () => {
-    // const resp = await axios.get('http://127.0.0.1:5000/api/initial');
-    const resp = await axios.get('https://sampleappapi.onrender.com/api/initial');
+    const resp = await axios.get('http://127.0.0.1:5000/api/initial');
+    // const resp = await axios.get('https://sampleappapi.onrender.com/api/initial');
 
     if (resp.status !== 200) {
       console.log('error');
@@ -135,7 +157,6 @@ function ProgressPage() {
       return acc;
     }, {});
 
-    console.log(newFollowersObj);
     setAllFollowers(newFollowersObj);
     setFollowers(newFollowers);
   }
@@ -186,7 +207,7 @@ function ProgressPage() {
   return <>
     <SubNav riotID={riotID} numCardsCompleted={numCardsCompleted} numGames={numGames} progressCode={progressCode} openProfile={handleClickOpen}/>
     <ContentArea champions={champions} followers={followers} toggleRegions={toggleSelectedRegion} regions={selectedRegions}/>
-    <CreateProfile open={open} handleClose={handleClose} startProfile={startProfile}/>
+    <CreateProfile open={openNewProfile} handleClose={handleClose} startProfile={startProfile}/>
     </>
 }
 

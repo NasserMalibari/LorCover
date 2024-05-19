@@ -41,7 +41,7 @@ def getLastMatchID():
         
         data = response.json()
         puuid = data['puuid']
-
+        print('here1')
         # load match history
         endpoint = f"https://americas.api.riotgames.com/lor/match/v1/matches/by-puuid/{puuid}/ids?api_key={riot_key}"
         response = requests.get(endpoint)
@@ -66,9 +66,9 @@ def getCards(match_id, puuid):
     # from dotenv import load_dotenv
     # load_dotenv()  
     riot_key = os.getenv('RIOT_KEY')
-
     matchEndpoint = f"https://americas.api.riotgames.com/lor/match/v1/matches/{match_id}?api_key={riot_key}"
     response = requests.get(matchEndpoint)
+    print(response)
     if response.status_code != 200:
         raise ValueError()
     data = response.json()

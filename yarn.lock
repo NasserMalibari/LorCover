@@ -8567,6 +8567,11 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
+runeterra@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/runeterra/-/runeterra-4.0.0.tgz#da9f6da57ade25484331f4efc7a70d1ce37bd3a4"
+  integrity sha512-jgEX3L/p3eFd57AU+IaqfwgFwkOA7ATAeKRDV+8gOT6oW1qj8u/nqIEpbVZGTqp0i90bkeRpuxAU3vbPAYL8FA==
+
 safe-array-concat@^1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/safe-array-concat/-/safe-array-concat-1.1.2.tgz"

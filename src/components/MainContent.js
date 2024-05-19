@@ -85,7 +85,7 @@ function MainContent({champions, followers}) {
         }
       })
       .map((card, index) => (
-        <CardBox key={index} name={card.name} regions={card.regions} path={card.path}/>
+        <CardBox key={index} name={card.name} regions={card.regions} path={card.path} completed={card.completed}/>
       ))}
   </Box>
   </Box>

@@ -7,15 +7,16 @@ const CopyField = ({ value }) => {
       style: { color: '#FFFFFF' }
   }
   const [open, setOpen] = useState(false);
-  const [code, setCode] = useState(value);
+
 
 
   const handleClick = () => {
     setOpen(true);
-    navigator.clipboard.writeText(code);
+    console.log(value);
+    navigator.clipboard.writeText(value);
   };
   return <>
-    <TextField value={code} inputProps={fontColor}/>
+    <TextField value={value} inputProps={fontColor}/>
     <IconButton onClick={handleClick} color="primary">
       <ContentCopyIcon />
     </IconButton>

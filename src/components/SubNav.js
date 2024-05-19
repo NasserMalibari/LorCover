@@ -73,7 +73,7 @@ function SubNav({riotID, numCardsCompleted, numGames, progressCode, openProfile}
             variant="h6"
             noWrap
             component="div"
-            sx={{ marginRight: '60px', display: { xs: 'none', sm: 'block' } }}
+            sx={{ marginRight: '10px', display: { xs: 'none', sm: 'block' } }}
           >
             {numCardsCompleted} / 1005
           </Typography>
@@ -83,7 +83,7 @@ function SubNav({riotID, numCardsCompleted, numGames, progressCode, openProfile}
             component="div"
             sx={{ marginRight: '60px', display: { xs: 'none', sm: 'block' } }}
           >
-            ( 0% )
+            ({(numCardsCompleted * 100 / 1005).toFixed(1)}%)
           </Typography>
           <Typography
             variant="h6"
