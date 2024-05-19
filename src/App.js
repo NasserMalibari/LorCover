@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Page1 from './pages/page1';
 import Page2 from './pages/page2';
 import ProgressPage from './pages/ProgressPage';
-import RiotText from './pages/RiotText';
 
 function App() {
 
