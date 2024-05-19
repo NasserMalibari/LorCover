@@ -20,6 +20,7 @@ def getLastMatchID():
     name = request.args.get('name')
     tag = request.args.get('tag')
     num_matches = request.args.get('num_matches')
+    last_match_id = request.args.get('last_match_id')
 
     if name is None:
         return ({'error': 'No Name'}), 400
@@ -27,6 +28,13 @@ def getLastMatchID():
     if tag is None:
         return ({'error': 'No tag'}), 400
 
+    if last_match_id is None and num_matches is None:
+        return ({'error': 'last_match_id or num_matches must be an arg'}), 400
+
+    if last_match_id is not None and num_matches is not None:
+        return ({'error': 'last_match_id and num_matches cannot both be specified'}), 400
+
+    print('here0')
     if num_matches is None:
         num_matches = 0
     try:
@@ -49,12 +57,28 @@ def getLastMatchID():
             # print(riot_key)
             return ({'error': 'error finding matches', 'code': response.status_code}), 400
         data = response.json()
-        last_match_id = data[0]
+        new_last_match_id = data[0]
         cards = set()
-        for match in data[0:int(num_matches)]:
+        print(data)
+
+        matches = []
+        if last_match_id is None:
+            matches = data[0:int(num_matches)]
+        else:
+            found = False
+            for (i, match_id) in enumerate(data):
+                if (match_id == last_match_id):
+                    matches = data[0:i]
+                    found = True
+                    break
+                if (found == False):
+                    matches = data
+
+        # print(last_match_id)
+        for match in matches:
             cards = cards.union(getCards(match, puuid))
 
-        return {'lastMatchID': last_match_id, 'cards': list(cards)}
+        return {'lastMatchID': new_last_match_id, 'cards': list(cards)}
         
     except ValueError:
         return ({'error': 'Couldnt find player'}), 400

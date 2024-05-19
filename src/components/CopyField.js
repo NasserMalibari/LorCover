@@ -17,7 +17,7 @@ const CopyField = ({ value }) => {
   };
   return <>
     {/* <TextField value={value} inputProps={fontColor}/> */}
-    <IconButton onClick={handleClick} color="primary">
+    <IconButton sx={{marginRight: '20px'}} onClick={handleClick} color="primary">
       <ContentCopyIcon />
     </IconButton>
     <Snackbar

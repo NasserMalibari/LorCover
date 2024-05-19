@@ -61,7 +61,7 @@ function SubNav({riotID, numCardsCompleted, numGames, progressCode, openProfile,
             variant="h6"
             noWrap
             component="div"
-            sx={{ marginRight:'40px', display: { xs: 'none', sm: 'block' } }}
+            sx={{ marginRight:'1px', display: { xs: 'none', sm: 'block' } }}
           >
             Copy Progress
           </Typography>
