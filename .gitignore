@@ -23,3 +23,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 api/.env
+api/cleanStandardcards.sh
+api/countStandard.py
+api/standard.json
+api/standard2.json
+api/standard3.json
+api/standard4.json
+api/standardCards.json
