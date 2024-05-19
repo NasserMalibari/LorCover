@@ -4,7 +4,7 @@ import SubNav from "../components/SubNav";
 import ContentArea from "../components/ContentArea";
 import axios from "axios";
 import CreateProfile from "../components/CreateProfile"
-import encodeDeck, { cardArrayToDeckCode } from "../helpers/generateCode";
+import encodeDeck, { cardArrayToDeckCode, decodeDeck } from "../helpers/generateCode";
 
 function ProgressPage() {
 
@@ -51,10 +51,38 @@ function ProgressPage() {
     // get last  match id
   }
 
-
-
   const loadProfile = (progressCode) => {
     // setProgressCode, setNumGames, setNumCardsCompleted, setRiotId
+    let res = progressCode.split(';');
+    if (res.length !== 4) {
+      console.log('error: res.length is not 4')
+      return;
+    }
+    setRiotID(res[0]);
+    setNumGames(res[1]);
+    setLastMatchID(res[3]);
+
+    // reset all cards to false
+    for (let key in allChampions) {
+      allChampions[key].completed = false;
+    }
+    for (let key in allFollowers) {
+      allFollowers[key].completed = false;
+    }
+
+    let deckCodeArray = decodeDeck(res[2]);
+    deckCodeArray.forEach((card) => {
+      if (card in allChampions) {
+        allChampions[card].completed = true;
+      } else if (card in allFollowers) {
+        allFollowers[card].completed = true;
+      }
+    });
+    setNumCardsCompleted(deckCodeArray.length);
+
+    // res2 is a card code, so decode it and turn into profile
+    setProgressCode(progressCode);
+
   }
 
   const updateProfile = () => {
@@ -100,7 +128,6 @@ function ProgressPage() {
 
     // setProgresCode
     setProgressCode(`${riotID};${numGames};${cardArrayToDeckCode(allChampions,allFollowers)};${lastMatchID}`);
-    console.log('changing progressCode');
   }, [allChampions, allFollowers, numGames])
   
   const setInitialCards = async () => {
@@ -205,7 +232,13 @@ function ProgressPage() {
   }, []);
 
   return <>
-    <SubNav riotID={riotID} numCardsCompleted={numCardsCompleted} numGames={numGames} progressCode={progressCode} openProfile={handleClickOpen}/>
+    <SubNav riotID={riotID} 
+      numCardsCompleted={numCardsCompleted}
+      numGames={numGames} 
+      progressCode={progressCode} 
+      openProfile={handleClickOpen}
+      loadProfile={loadProfile}
+     />
     <ContentArea champions={champions} followers={followers} toggleRegions={toggleSelectedRegion} regions={selectedRegions}/>
     <CreateProfile open={openNewProfile} handleClose={handleClose} startProfile={startProfile}/>
     </>

@@ -16,7 +16,7 @@ const CopyField = ({ value }) => {
     navigator.clipboard.writeText(value);
   };
   return <>
-    <TextField value={value} inputProps={fontColor}/>
+    {/* <TextField value={value} inputProps={fontColor}/> */}
     <IconButton onClick={handleClick} color="primary">
       <ContentCopyIcon />
     </IconButton>
