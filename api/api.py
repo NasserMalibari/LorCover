@@ -78,7 +78,7 @@ def getLastMatchID():
         for match in matches:
             cards = cards.union(getCards(match, puuid))
 
-        return {'lastMatchID': new_last_match_id, 'cards': list(cards)}
+        return {'lastMatchID': new_last_match_id, 'cards': list(cards), 'numMatches': len(matches)}
         
     except ValueError:
         return ({'error': 'Couldnt find player'}), 400

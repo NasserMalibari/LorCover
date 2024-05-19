@@ -15,10 +15,9 @@ import LoadProfile from './LoadProfile';
 
 
 
-function SubNav({riotID, numCardsCompleted, numGames, progressCode, openProfile, loadProfile}) {
+function SubNav({riotID, numCardsCompleted, numGames, progressCode, openProfile, loadProfile, updateProfile}) {
 
   const [openLoadProfile, setOpenLoadProfile] = React.useState(false);
-
 
   return (
     <>
@@ -68,7 +67,8 @@ function SubNav({riotID, numCardsCompleted, numGames, progressCode, openProfile,
           <CopyField value={progressCode} />
           {/* <Button variant="outlined" color="error">Reset Progress</Button> */}
           <Button sx={{marginRight: '10px'}} onClick={openProfile} variant="contained" color="primary">New Profile</Button>
-          <Button onClick={() => setOpenLoadProfile(true)} variant="contained" color="primary">Load Profile</Button>
+          <Button sx={{marginRight: '10px'}} onClick={() => setOpenLoadProfile(true)} variant="contained" color="primary">Load Profile</Button>
+          <Button onClick={updateProfile} variant="contained" color="primary">Update Profile</Button>
         </Toolbar>
       </AppBar>
     </Box>
@@ -76,6 +76,10 @@ function SubNav({riotID, numCardsCompleted, numGames, progressCode, openProfile,
     handleClose={() => setOpenLoadProfile(false)}
     loadProfile={loadProfile}
     />
+    {/* <UpdateProfile open={openUpdateProfile}
+      handleClose={() => setOpenUpdateProfile(false)}
+      updateProfile={() => {}}
+    /> */}
     </>
   );
 }

@@ -5,6 +5,7 @@ import ContentArea from "../components/ContentArea";
 import axios from "axios";
 import CreateProfile from "../components/CreateProfile"
 import encodeDeck, { cardArrayToDeckCode, decodeDeck } from "../helpers/generateCode";
+import { CompareSharp } from "@mui/icons-material";
 
 function ProgressPage() {
 
@@ -87,6 +88,26 @@ function ProgressPage() {
 
   const updateProfile = () => {
     // fetch info from api given latest match
+    console.log(`http://127.0.0.1:5000/api/lastMatchID?name=${riotID.split('#')[0]}&tag=${riotID.split('#')[0]}&last_match_id=${lastMatchID}`);
+    axios.get(`http://127.0.0.1:5000/api/lastMatchID?name=${riotID.split('#')[0]}&tag=${riotID.split('#')[1]}&last_match_id=${lastMatchID}`)
+    .then((resp) => {
+      console.log(resp);
+      setLastMatchID(resp.data.lastMatchID);
+      // set completed cards
+      resp.data.cards.forEach((card) => {
+        if (card in allChampions) {
+          allChampions[card].completed = true;
+        } else if (card in allFollowers) {
+          allFollowers[card].completed = true;
+        }
+      })
+      // setNumGames(numMatches);
+      // setNumCardsCompleted(resp.data.cards.length);
+      // encodeDeck(resp.data.cards);
+
+      // setRiotID(`${name} #${tag}`);
+    })
+    .catch()
 
   }
 
@@ -238,6 +259,7 @@ function ProgressPage() {
       progressCode={progressCode} 
       openProfile={handleClickOpen}
       loadProfile={loadProfile}
+      updateProfile={updateProfile}
      />
     <ContentArea champions={champions} followers={followers} toggleRegions={toggleSelectedRegion} regions={selectedRegions}/>
     <CreateProfile open={openNewProfile} handleClose={handleClose} startProfile={startProfile}/>
