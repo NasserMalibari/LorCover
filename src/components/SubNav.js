@@ -12,10 +12,11 @@ import TextField from '@mui/material/TextField';
 import CopyField from './CopyField';
 import { Button } from '@mui/material';
 import LoadProfile from './LoadProfile';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 
-function SubNav({riotID, numCardsCompleted, numGames, progressCode, openProfile, loadProfile, updateProfile}) {
+function SubNav({riotID, numCardsCompleted, numGames, progressCode, openProfile, loadProfile, updateProfile, loading}) {
 
   const [openLoadProfile, setOpenLoadProfile] = React.useState(false);
 
@@ -68,7 +69,8 @@ function SubNav({riotID, numCardsCompleted, numGames, progressCode, openProfile,
           {/* <Button variant="outlined" color="error">Reset Progress</Button> */}
           <Button sx={{marginRight: '10px'}} onClick={openProfile} variant="contained" color="primary">New Profile</Button>
           <Button sx={{marginRight: '10px'}} onClick={() => setOpenLoadProfile(true)} variant="contained" color="primary">Load Profile</Button>
-          <Button onClick={updateProfile} variant="contained" color="primary">Update Profile</Button>
+          <Button sx={{marginRight: '10px'}} onClick={updateProfile} variant="contained" color="primary">Update Profile</Button>
+          {loading && <CircularProgress />}
         </Toolbar>
       </AppBar>
     </Box>

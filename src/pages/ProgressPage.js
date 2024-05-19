@@ -7,6 +7,7 @@ import encodeDeck, { base64ToBytes, bytesToBase64, cardArrayToDeckCode, decodeDe
 
 function ProgressPage() {
 
+  const [loading, setLoading] = useState(false);
   const [riotID, setRiotID] = useState('');
   const [numCardsCompleted, setNumCardsCompleted] = useState(0);
   const [numGames, setNumGames] = useState(0);
@@ -24,8 +25,8 @@ function ProgressPage() {
 
   // eg {'name': 'Naś', 'tag': 'OCE'}
   const startProfile = async (name, tag, numMatches) => {
-    // axios.get(`https://sampleappapi.onrender.com/api/lastMatchID?name=${name}&tag=${tag}&num_matches=${numMatches}`)
-    axios.get(`http://127.0.0.1:5000/api/lastMatchID?name=${name}&tag=${tag}&num_matches=${numMatches}`)
+    setLoading(true);
+    axios.get(`https://sampleappapi.onrender.com/api/lastMatchID?name=${name}&tag=${tag}&num_matches=${numMatches}`)
     .then((resp) => {
       setLastMatchID(resp.data.lastMatchID);
       // set completed cards
@@ -41,12 +42,12 @@ function ProgressPage() {
       encodeDeck(resp.data.cards);
 
       setRiotID(`${name}#${tag}`);
+      setLoading(false);
     })
     .catch((err) => {
       console.log(err);
       console.log('there was an error')
     })
-    // const resp = await axios.get(`https://sampleappapi.onrender.com/api/lastMatchID?name=${name}&tag=${tag}`);
     // get last  match id
   }
 
@@ -87,8 +88,7 @@ function ProgressPage() {
 
   const updateProfile = () => {
     // fetch info from api given latest match
-    console.log(`http://127.0.0.1:5000/api/lastMatchID?name=${riotID.split('#')[0]}&tag=${riotID.split('#')[0]}&last_match_id=${lastMatchID}`);
-    axios.get(`http://127.0.0.1:5000/api/lastMatchID?name=${riotID.split('#')[0]}&tag=${riotID.split('#')[1]}&last_match_id=${lastMatchID}`)
+    axios.get(`https://sampleappapi.onrender.com/api/lastMatchID?name=${riotID.split('#')[0]}&tag=${riotID.split('#')[1]}&last_match_id=${lastMatchID}`)
     .then((resp) => {
       console.log(resp);
       setLastMatchID(resp.data.lastMatchID);
@@ -160,8 +160,7 @@ function ProgressPage() {
   }, [allChampions, allFollowers, numGames])
   
   const setInitialCards = async () => {
-    const resp = await axios.get('http://127.0.0.1:5000/api/initial');
-    // const resp = await axios.get('https://sampleappapi.onrender.com/api/initial');
+    const resp = await axios.get('https://sampleappapi.onrender.com/api/initial');
 
     if (resp.status !== 200) {
       console.log('error');
@@ -268,6 +267,7 @@ function ProgressPage() {
       openProfile={handleClickOpen}
       loadProfile={loadProfile}
       updateProfile={updateProfile}
+      loading={loading}
      />
     <ContentArea champions={champions} followers={followers} toggleRegions={toggleSelectedRegion} regions={selectedRegions}/>
     <CreateProfile open={openNewProfile} handleClose={handleClose} startProfile={startProfile}/>
