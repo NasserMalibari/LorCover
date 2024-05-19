@@ -14,7 +14,7 @@ function CardBox({name, regions, path, completed}) {
   return <Box onMouseEnter={() => setIsHovered(true)}
   onMouseLeave={() => setIsHovered(false)}
   sx={{border: '2px solid black', width: '260px', height: '30px', display:'flex', justifyContent: 'center',
-    alignItems: 'center', backgroundColor: completed ? '#90EE90' : 'white'
+    alignItems: 'center', backgroundColor: completed ? '#2E6F40' : '272623 ', color: completed ? 'white' :'white'
   }}>
     <Box>{name} {regions}</Box>
     {isHovered && (

@@ -17,11 +17,11 @@ function MainContent({champions, followers}) {
 
   return <Box sx={{display: 'flex', 
   flexDirection: 'column', 
-  alignItems: 'center', 
+  alignItems: 'flex-start', 
   height: 'calc(100vh - 94px)',
   overflowY: 'auto',
   padding: '0px',
-  paddingLeft: '10px',
+  paddingLeft: '40px',
   paddingTop: '25px'}}>
   <FormControl>
     <FormLabel id="demo-controlled-radio-buttons-group">Show</FormLabel>
@@ -37,7 +37,7 @@ function MainContent({champions, followers}) {
       <FormControlLabel value="uncompleted" control={<Radio />} label="Uncompleted" />
     </RadioGroup>
   </FormControl>
-  <Box sx={{fontSize: '2em', fontWeight: 'bold', marginBottom: '10px'}}>
+  <Box sx={{fontSize: '2em', fontWeight: 'bold', marginBottom: '20px'}}>
     Champions
   </Box>
   <Box
@@ -64,7 +64,7 @@ function MainContent({champions, followers}) {
         <CardBox key={index} name={card.name} regions={card.regions} path={card.path} completed={card.completed}/>
       ))}
   </Box>
-  <Box sx={{fontSize: '2em', fontWeight: 'bold', marginBottom: '10px'}}>
+  <Box sx={{fontSize: '2em', fontWeight: 'bold', marginBottom: '20px', marginTop: '20px'}}>
     Followers
   </Box>
   <Box

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "@mui/material";
 import SubNav from "../components/SubNav";
 import ContentArea from "../components/ContentArea";
 import axios from "axios";
 import CreateProfile from "../components/CreateProfile"
-import encodeDeck, { cardArrayToDeckCode, decodeDeck } from "../helpers/generateCode";
-import { CompareSharp } from "@mui/icons-material";
+import encodeDeck, { base64ToBytes, bytesToBase64, cardArrayToDeckCode, decodeDeck } from "../helpers/generateCode";
 
 function ProgressPage() {
 
@@ -42,7 +40,7 @@ function ProgressPage() {
       setNumCardsCompleted(resp.data.cards.length);
       encodeDeck(resp.data.cards);
 
-      setRiotID(`${name} #${tag}`);
+      setRiotID(`${name}#${tag}`);
     })
     .catch((err) => {
       console.log(err);
@@ -54,7 +52,8 @@ function ProgressPage() {
 
   const loadProfile = (progressCode) => {
     // setProgressCode, setNumGames, setNumCardsCompleted, setRiotId
-    let res = progressCode.split(';');
+    let res = new TextDecoder().decode(base64ToBytes(progressCode)).split(';');
+    console.log(res);
     if (res.length !== 4) {
       console.log('error: res.length is not 4')
       return;
@@ -94,15 +93,23 @@ function ProgressPage() {
       console.log(resp);
       setLastMatchID(resp.data.lastMatchID);
       // set completed cards
+      let addedCards = 0
+
       resp.data.cards.forEach((card) => {
         if (card in allChampions) {
+          if (!allChampions[card].completed) {
+            addedCards += 1;
+          }
           allChampions[card].completed = true;
         } else if (card in allFollowers) {
+          if (!allFollowers[card].completed) {
+            addedCards += 1;
+          }
           allFollowers[card].completed = true;
         }
       })
-      // setNumGames(numMatches);
-      // setNumCardsCompleted(resp.data.cards.length);
+      setNumGames(numGames => numGames + resp.data.numMatches);
+      setNumCardsCompleted(numCardsCompleted => numCardsCompleted + addedCards);
       // encodeDeck(resp.data.cards);
 
       // setRiotID(`${name} #${tag}`);
@@ -148,7 +155,8 @@ function ProgressPage() {
     cardArrayToDeckCode(allChampions, allFollowers)
 
     // setProgresCode
-    setProgressCode(`${riotID};${numGames};${cardArrayToDeckCode(allChampions,allFollowers)};${lastMatchID}`);
+    
+    setProgressCode(bytesToBase64(new TextEncoder().encode(`${riotID};${numGames};${cardArrayToDeckCode(allChampions,allFollowers)};${lastMatchID}`)));
   }, [allChampions, allFollowers, numGames])
   
   const setInitialCards = async () => {
