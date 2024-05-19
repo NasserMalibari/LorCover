@@ -11,7 +11,7 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
-        <Route path='/riot' element={<>1fbc4f61-eeba-4ad2-8b2b-f7efbffa9fe7</>}></Route>
+        {/* <Route path='/riot' element={<>1fbc4f61-eeba-4ad2-8b2b-f7efbffa9fe7</>}></Route> */}
         <Route path='/' element={<ProgressPage />}></Route>
         <Route path="/page1" element={<Page1 />}></Route>
         <Route path="/page2" element={<Page2 />}></Route>
