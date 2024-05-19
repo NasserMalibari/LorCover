@@ -12,6 +12,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<ProgressPage />}></Route>
+        <Route path='/riot' element={<span>1fbc4f61-eeba-4ad2-8b2b-f7efbffa9fe7</span>}></Route>
         <Route path="/page1" element={<Page1 />}></Route>
         <Route path="/page2" element={<Page2 />}></Route>
       </Routes>
